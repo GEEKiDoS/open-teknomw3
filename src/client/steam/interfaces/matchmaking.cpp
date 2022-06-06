@@ -1,5 +1,8 @@
 #include <std_include.hpp>
-#include "../steam.hpp"
+
+#include "utils/memory.hpp"
+
+#include "steam/steam.hpp"
 
 namespace steam
 {
@@ -28,7 +31,7 @@ namespace steam
 		return false;
 	}
 
-	unsigned long long matchmaking::RequestLobbyList()
+	unsigned __int64 matchmaking::RequestLobbyList()
 	{
 		return 0;
 	}
@@ -59,27 +62,16 @@ namespace steam
 	{
 	}
 
-	void matchmaking::AddRequestLobbyListCompatibleMembersFilter(steam_id steamID)
-	{
-	}
-
 	steam_id matchmaking::GetLobbyByIndex(int iLobby)
 	{
-		steam_id id;
-
-		id.raw.account_id = SteamUser()->GetSteamID().raw.account_id;
-		id.raw.universe = 1;
-		id.raw.account_type = 8;
-		id.raw.account_instance = 0x40000;
-
-		return id;
+		return steam_id();
 	}
 
-	unsigned long long matchmaking::CreateLobby(int eLobbyType, int cMaxMembers)
+	unsigned __int64 matchmaking::CreateLobby(int eLobbyType, int cMaxMembers)
 	{
 		const auto result = callbacks::register_call();
-		auto retvals = static_cast<lobby_created*>(calloc(1, sizeof(lobby_created)));
-		//::Utils::Memory::AllocateArray<LobbyCreated>();
+		auto* retvals = ::utils::memory::allocate<lobby_created>();
+
 		steam_id id;
 
 		id.raw.account_id = SteamUser()->GetSteamID().raw.account_id;
@@ -97,11 +89,11 @@ namespace steam
 		return result;
 	}
 
-	unsigned long long matchmaking::JoinLobby(steam_id steamIDLobby)
+	unsigned __int64 matchmaking::JoinLobby(steam_id steamIDLobby)
 	{
 		const auto result = callbacks::register_call();
-		auto* retvals = static_cast<lobby_enter*>(calloc(1, sizeof(lobby_enter)));
-		//::Utils::Memory::AllocateArray<LobbyEnter>();
+		auto* retvals = ::utils::memory::allocate<lobby_enter>();
+
 		retvals->m_b_locked = false;
 		retvals->m_e_chat_room_enter_response = 1;
 		retvals->m_rgf_chat_permissions = 0xFFFFFFFF;
@@ -114,6 +106,7 @@ namespace steam
 
 	void matchmaking::LeaveLobby(steam_id steamIDLobby)
 	{
+		//Components::Party::RemoveLobby(steamIDLobby);
 	}
 
 	bool matchmaking::InviteUserToLobby(steam_id steamIDLobby, steam_id steamIDInvitee)
@@ -133,7 +126,7 @@ namespace steam
 
 	const char* matchmaking::GetLobbyData(steam_id steamIDLobby, const char* pchKey)
 	{
-		return "";
+		return "212"; //Components::Party::GetLobbyInfo(steamIDLobby, pchKey);
 	}
 
 	bool matchmaking::SetLobbyData(steam_id steamIDLobby, const char* pchKey, const char* pchValue)
@@ -149,12 +142,12 @@ namespace steam
 	bool matchmaking::GetLobbyDataByIndex(steam_id steamIDLobby, int iLobbyData, char* pchKey, int cchKeyBufferSize,
 	                                      char* pchValue, int cchValueBufferSize)
 	{
-		return true;
+		return false;
 	}
 
 	bool matchmaking::DeleteLobbyData(steam_id steamIDLobby, const char* pchKey)
 	{
-		return true;
+		return false;
 	}
 
 	const char* matchmaking::GetLobbyMemberData(steam_id steamIDLobby, steam_id steamIDUser, const char* pchKey)
@@ -179,7 +172,7 @@ namespace steam
 
 	bool matchmaking::RequestLobbyData(steam_id steamIDLobby)
 	{
-		return true;
+		return false;
 	}
 
 	void matchmaking::SetLobbyGameServer(steam_id steamIDLobby, unsigned int unGameServerIP,
@@ -190,7 +183,7 @@ namespace steam
 	bool matchmaking::GetLobbyGameServer(steam_id steamIDLobby, unsigned int* punGameServerIP,
 	                                     unsigned short* punGameServerPort, steam_id* psteamIDGameServer)
 	{
-		return true;
+		return false;
 	}
 
 	bool matchmaking::SetLobbyMemberLimit(steam_id steamIDLobby, int cMaxMembers)
@@ -219,11 +212,6 @@ namespace steam
 	}
 
 	bool matchmaking::SetLobbyOwner(steam_id steamIDLobby, steam_id steamIDNewOwner)
-	{
-		return true;
-	}
-
-	bool matchmaking::SetLinkedLobby(steam_id steamIDLobby, steam_id steamIDLobby2)
 	{
 		return true;
 	}

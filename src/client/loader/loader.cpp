@@ -8,6 +8,11 @@
 
 FARPROC loader::load(const utils::nt::library& library, const std::string& buffer) const
 {
+	if (reinterpret_cast<size_t>(payload_data) != 0x401000)
+	{
+		throw std::runtime_error{ "Fuck you MSVC" };
+	}
+
 	if (buffer.empty()) return nullptr;
 
 	const utils::nt::library source(HMODULE(buffer.data()));
@@ -40,9 +45,9 @@ FARPROC loader::load_library(const std::string& filename) const
 	}
 
 	const auto base = size_t(target.get_ptr());
-	if(base != 0x140000000)
+	if(base != 0x400000)
 	{
-		throw std::runtime_error{utils::string::va("Binary was mapped at 0x%llX (instead of 0x%llX). Something is severely broken :(", base, 0x140000000)};
+		throw std::runtime_error{utils::string::va("Binary was mapped at 0x%X (instead of 0x%X). Something is severely broken :(", base, 0x400000)};
 	}
 
 	this->load_imports(target, target);
@@ -69,10 +74,10 @@ void loader::load_section(const utils::nt::library& target, const utils::nt::lib
 
 	if (section->SizeOfRawData > 0)
 	{
-		std::memmove(target_ptr, source_ptr, section->SizeOfRawData);
-
 		DWORD old_protect;
 		VirtualProtect(target_ptr, section->Misc.VirtualSize, PAGE_EXECUTE_READWRITE, &old_protect);
+
+		std::memmove(target_ptr, source_ptr, section->SizeOfRawData);
 	}
 }
 
@@ -121,6 +126,7 @@ void loader::load_imports(const utils::nt::library& target, const utils::nt::lib
 			}
 
 			if (this->import_resolver_) function = FARPROC(this->import_resolver_(name, function_name));
+
 			if (!function)
 			{
 				auto library = utils::nt::library::load(name);

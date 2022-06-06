@@ -20,12 +20,7 @@ launcher::mode detect_mode_from_arguments()
 		return launcher::mode::server;
 	}
 
-	if (utils::flags::has_flag("multiplayer"))
-	{
-		return launcher::mode::multiplayer;
-	}
-
-	return launcher::mode::none;
+	return launcher::mode::multiplayer;
 }
 
 
@@ -36,7 +31,7 @@ FARPROC load_binary(const launcher::mode mode)
 
 	loader.set_import_resolver([self](const std::string& library, const std::string& function) -> void*
 	{
-		if (library == "steam_api64.dll")
+		if (library == "steam_api.dll")
 		{
 			return self.get_proc<FARPROC>(function);
 		}
@@ -70,7 +65,7 @@ FARPROC load_binary(const launcher::mode mode)
 			binary.data()));
 	}
 
-	return loader.load_library(binary);
+	return loader.load(self, data);
 }
 
 void enable_dpi_awareness()

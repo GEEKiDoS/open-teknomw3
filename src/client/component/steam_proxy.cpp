@@ -150,7 +150,7 @@ namespace steam_proxy
 			const auto path = runner_file.get_extracted_file();
 			const std::string cmdline = utils::string::va("\"%s\" -proc %d", path.data(), GetCurrentProcessId());
 
-			steam::game_id game_id;
+			game_id game_id;
 			game_id.raw.type = 1; // k_EGameIDTypeGameMod
 			game_id.raw.app_id = app_id & 0xFFFFFF;
 

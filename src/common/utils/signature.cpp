@@ -4,6 +4,14 @@
 
 #include <intrin.h>
 
+#ifdef max
+#undef max
+#endif
+
+#ifdef min
+#undef min
+#endif
+
 namespace utils::hook
 {
 	void signature::load_pattern(const std::string& pattern)
@@ -29,7 +37,7 @@ namespace utils::hook
 					throw std::runtime_error("Invalid pattern");
 				}
 
-				char str[] = {val, 0};
+				char str[] = { val, 0 };
 				const auto current_nibble = static_cast<uint8_t>(strtol(str, nullptr, 16));
 
 				if (!has_nibble)
@@ -103,7 +111,7 @@ namespace utils::hook
 	std::vector<size_t> signature::process_range_vectorized(uint8_t* start, const size_t length) const
 	{
 		std::vector<size_t> result;
-		__declspec(align(16)) char desired_mask[16] = {0};
+		__declspec(align(16)) char desired_mask[16] = { 0 };
 
 		for (size_t i = 0; i < this->mask_.size(); i++)
 		{
@@ -118,7 +126,7 @@ namespace utils::hook
 			const auto address = start + i;
 			const auto value = _mm_loadu_si128(reinterpret_cast<const __m128i*>(address));
 			const auto comparison = _mm_cmpestrm(value, 16, comparand, static_cast<int>(this->mask_.size()),
-			                                     _SIDD_CMP_EQUAL_EACH);
+				_SIDD_CMP_EQUAL_EACH);
 
 			const auto matches = _mm_and_si128(mask, comparison);
 			const auto equivalence = _mm_xor_si128(mask, matches);
@@ -144,7 +152,7 @@ namespace utils::hook
 	signature::signature_result signature::process_serial() const
 	{
 		const auto sub = this->has_sse_support() ? 16 : this->mask_.size();
-		return {this->process_range(this->start_, this->length_ - sub)};
+		return { this->process_range(this->start_, this->length_ - sub) };
 	}
 
 	signature::signature_result signature::process_parallel() const
@@ -164,16 +172,16 @@ namespace utils::hook
 			const auto start = this->start_ + (grid * i);
 			const auto length = (i + 1 == cores) ? (this->start_ + this->length_ - sub) - start : grid;
 			threads.emplace_back([&, start, length]()
-			{
-				auto local_result = this->process_range(start, length);
-				if (local_result.empty()) return;
-
-				std::lock_guard _(mutex);
-				for (const auto& address : local_result)
 				{
-					result.push_back(address);
-				}
-			});
+					auto local_result = this->process_range(start, length);
+					if (local_result.empty()) return;
+
+					std::lock_guard _(mutex);
+					for (const auto& address : local_result)
+					{
+						result.push_back(address);
+					}
+				});
 		}
 
 		for (auto& t : threads)
@@ -185,7 +193,7 @@ namespace utils::hook
 		}
 
 		std::sort(result.begin(), result.end());
-		return {std::move(result)};
+		return { std::move(result) };
 	}
 
 	bool signature::has_sse_support() const

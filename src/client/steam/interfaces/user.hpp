@@ -9,19 +9,12 @@ namespace steam
 		int m_e_result;
 	};
 
-	struct get_auth_session_ticket_response
-	{
-		enum { callback_id = 163 };
-
-		unsigned int m_h_auth_ticket;
-		int m_e_result;
-	};
-
 	class user
 	{
-	public:
+	protected:
 		~user() = default;
 
+	public:
 		virtual int GetHSteamUser();
 		virtual bool LoggedOn();
 		virtual steam_id GetSteamID();
@@ -49,7 +42,7 @@ namespace steam
 		virtual unsigned int UserHasLicenseForApp(steam_id steamID, unsigned int appID);
 		virtual bool BIsBehindNAT();
 		virtual void AdvertiseGame(steam_id steamIDGameServer, unsigned int unIPServer, unsigned short usPortServer);
-		virtual unsigned long long RequestEncryptedAppTicket(void* pUserData, int cbUserData);
+		virtual unsigned __int64 RequestEncryptedAppTicket(void* pUserData, int cbUserData);
 		virtual bool GetEncryptedAppTicket(void* pTicket, int cbMaxTicket, unsigned int* pcbTicket);
 	};
 }

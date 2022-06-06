@@ -1,5 +1,5 @@
 #include <std_include.hpp>
-#include "../steam.hpp"
+#include "steam/steam.hpp"
 
 namespace steam
 {
@@ -70,35 +70,5 @@ namespace steam
 
 	void apps::UninstallDLC(unsigned int nAppID)
 	{
-	}
-
-	void apps::RequestAppProofOfPurchaseKey(unsigned int nAppID)
-	{
-	}
-
-	bool apps::GetCurrentBetaName(char* pchName, int cchNameBufferSize)
-	{
-		strncpy_s(pchName, cchNameBufferSize, "public", cchNameBufferSize);
-		return true;
-	}
-
-	bool apps::MarkContentCorrupt(bool bMissingFilesOnly)
-	{
-		return false;
-	}
-
-	unsigned int apps::GetInstalledDepots(int* pvecDepots, unsigned int cMaxDepots)
-	{
-		return 0;
-	}
-
-	unsigned int apps::GetAppInstallDir(unsigned int appID, char* pchFolder, unsigned int cchFolderBufferSize)
-	{
-		return 0;
-	}
-
-	bool apps::BIsAppInstalled(unsigned int appID)
-	{
-		return false;
 	}
 }

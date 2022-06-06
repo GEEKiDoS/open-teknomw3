@@ -4,9 +4,10 @@ namespace steam
 {
 	class networking
 	{
-	public:
+	protected:
 		~networking() = default;
 
+	public:
 		virtual bool SendP2PPacket(steam_id steamIDRemote, const void* pubData, unsigned int cubData, int eP2PSendType);
 		virtual bool IsP2PPacketAvailable(unsigned int* pcubMsgSize, int idk);
 		virtual bool ReadP2PPacket(void* pubDest, unsigned int cubDest, unsigned int* pcubMsgSize,

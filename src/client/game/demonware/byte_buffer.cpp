@@ -273,7 +273,7 @@ namespace demonware
 
 	bool byte_buffer::write(const std::string& data)
 	{
-		return this->write(static_cast<int>(data.size()), data.data());
+		return this->write(data.size(), data.data());
 	}
 
 	void byte_buffer::set_use_data_types(const bool use_data_types)

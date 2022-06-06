@@ -1,5 +1,5 @@
 #include <std_include.hpp>
-#include "../steam.hpp"
+#include "steam/steam.hpp"
 
 namespace steam
 {
@@ -35,27 +35,27 @@ namespace steam
 
 	bool user_stats::GetAchievement(const char* pchName, bool* pbAchieved)
 	{
-		return true;
+		return false;
 	}
 
 	bool user_stats::SetAchievement(const char* pchName)
 	{
-		return true;
+		return false;
 	}
 
 	bool user_stats::ClearAchievement(const char* pchName)
 	{
-		return true;
+		return false;
 	}
 
 	bool user_stats::GetAchievementAndUnlockTime(const char* pchName, bool* pbAchieved, unsigned int* punUnlockTime)
 	{
-		return true;
+		return false;
 	}
 
 	bool user_stats::StoreStats()
 	{
-		return true;
+		return false;
 	}
 
 	int user_stats::GetAchievementIcon(const char* pchName)
@@ -71,20 +71,10 @@ namespace steam
 	bool user_stats::IndicateAchievementProgress(const char* pchName, unsigned int nCurProgress,
 	                                             unsigned int nMaxProgress)
 	{
-		return true;
+		return false;
 	}
 
-	unsigned int user_stats::GetNumAchievements()
-	{
-		return 0;
-	}
-
-	const char* user_stats::GetAchievementName(unsigned int iAchievement)
-	{
-		return "";
-	}
-
-	unsigned long long user_stats::RequestUserStats(steam_id steamIDUser)
+	unsigned __int64 user_stats::RequestUserStats(steam_id steamIDUser)
 	{
 		return 0;
 	}
@@ -101,13 +91,13 @@ namespace steam
 
 	bool user_stats::GetUserAchievement(steam_id steamIDUser, const char* pchName, bool* pbAchieved)
 	{
-		return true;
+		return false;
 	}
 
 	bool user_stats::GetUserAchievementAndUnlockTime(steam_id steamIDUser, const char* pchName, bool* pbAchieved,
 	                                                 unsigned int* punUnlockTime)
 	{
-		return true;
+		return false;
 	}
 
 	bool user_stats::ResetAllStats(bool bAchievementsToo)
@@ -115,74 +105,73 @@ namespace steam
 		return false;
 	}
 
-	unsigned long long user_stats::FindOrCreateLeaderboard(const char* pchLeaderboardName, int eLeaderboardSortMethod,
-	                                                       int eLeaderboardDisplayType)
+	unsigned __int64 user_stats::FindOrCreateLeaderboard(const char* pchLeaderboardName, int eLeaderboardSortMethod,
+	                                                     int eLeaderboardDisplayType)
 	{
 		return 0;
 	}
 
-	unsigned long long user_stats::FindLeaderboard(const char* pchLeaderboardName)
+	unsigned __int64 user_stats::FindLeaderboard(const char* pchLeaderboardName)
 	{
 		return 0;
 	}
 
-	const char* user_stats::GetLeaderboardName(unsigned long long hSteamLeaderboard)
+	const char* user_stats::GetLeaderboardName(unsigned __int64 hSteamLeaderboard)
 	{
 		return "";
 	}
 
-	int user_stats::GetLeaderboardEntryCount(unsigned long long hSteamLeaderboard)
+	int user_stats::GetLeaderboardEntryCount(unsigned __int64 hSteamLeaderboard)
 	{
 		return 0;
 	}
 
-	int user_stats::GetLeaderboardSortMethod(unsigned long long hSteamLeaderboard)
+	int user_stats::GetLeaderboardSortMethod(unsigned __int64 hSteamLeaderboard)
 	{
 		return 0;
 	}
 
-	int user_stats::GetLeaderboardDisplayType(unsigned long long hSteamLeaderboard)
+	int user_stats::GetLeaderboardDisplayType(unsigned __int64 hSteamLeaderboard)
 	{
 		return 0;
 	}
 
-	unsigned long long user_stats::DownloadLeaderboardEntries(unsigned long long hSteamLeaderboard,
-	                                                          int eLeaderboardDataRequest, int nRangeStart,
-	                                                          int nRangeEnd)
+	unsigned __int64 user_stats::DownloadLeaderboardEntries(unsigned __int64 hSteamLeaderboard,
+	                                                        int eLeaderboardDataRequest, int nRangeStart, int nRangeEnd)
 	{
 		return 0;
 	}
 
-	unsigned long long user_stats::DownloadLeaderboardEntriesForUsers(unsigned long long hSteamLeaderboard,
-	                                                                  steam_id* prgUsers, int cUsers)
+	unsigned __int64 user_stats::DownloadLeaderboardEntriesForUsers(unsigned __int64 hSteamLeaderboard,
+	                                                                steam_id* prgUsers, int cUsers)
 	{
 		return 0;
 	}
 
-	bool user_stats::GetDownloadedLeaderboardEntry(unsigned long long hSteamLeaderboardEntries, int index,
+	bool user_stats::GetDownloadedLeaderboardEntry(unsigned __int64 hSteamLeaderboardEntries, int index,
 	                                               int* pLeaderboardEntry, int* pDetails, int cDetailsMax)
 	{
 		return false;
 	}
 
-	unsigned long long user_stats::UploadLeaderboardScore(unsigned long long hSteamLeaderboard,
-	                                                      int eLeaderboardUploadScoreMethod, int nScore,
-	                                                      const int* pScoreDetails, int cScoreDetailsCount)
+	unsigned __int64 user_stats::UploadLeaderboardScore(unsigned __int64 hSteamLeaderboard,
+	                                                    int eLeaderboardUploadScoreMethod, int nScore,
+	                                                    const int* pScoreDetails, int cScoreDetailsCount)
 	{
 		return 0;
 	}
 
-	unsigned long long user_stats::AttachLeaderboardUGC(unsigned long long hSteamLeaderboard, unsigned long long hUGC)
+	unsigned __int64 user_stats::AttachLeaderboardUGC(unsigned __int64 hSteamLeaderboard, unsigned __int64 hUGC)
 	{
 		return 0;
 	}
 
-	unsigned long long user_stats::GetNumberOfCurrentPlayers()
+	unsigned __int64 user_stats::GetNumberOfCurrentPlayers()
 	{
 		return 0;
 	}
 
-	unsigned long long user_stats::RequestGlobalAchievementPercentages()
+	unsigned __int64 user_stats::RequestGlobalAchievementPercentages()
 	{
 		return 0;
 	}
@@ -201,15 +190,15 @@ namespace steam
 
 	bool user_stats::GetAchievementAchievedPercent(const char* pchName, float* pflPercent)
 	{
-		return true;
+		return false;
 	}
 
-	unsigned long long user_stats::RequestGlobalStats(int nHistoryDays)
+	unsigned __int64 user_stats::RequestGlobalStats(int nHistoryDays)
 	{
 		return 0;
 	}
 
-	bool user_stats::GetGlobalStat(const char* pchStatName, long long* pData)
+	bool user_stats::GetGlobalStat(const char* pchStatName, __int64* pData)
 	{
 		return false;
 	}
@@ -219,7 +208,7 @@ namespace steam
 		return false;
 	}
 
-	int user_stats::GetGlobalStatHistory(const char* pchStatName, long long* pData, unsigned int cubData)
+	int user_stats::GetGlobalStatHistory(const char* pchStatName, __int64* pData, unsigned int cubData)
 	{
 		return 0;
 	}

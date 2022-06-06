@@ -1,5 +1,5 @@
 #include <std_include.hpp>
-#include "../steam.hpp"
+#include "steam/steam.hpp"
 
 namespace steam
 {
@@ -10,7 +10,7 @@ namespace steam
 
 	unsigned int utils::GetSecondsSinceComputerActive()
 	{
-		return (uint32_t)GetTickCount64() / 1000;
+		return 0;
 	}
 
 	int utils::GetConnectedUniverse()
@@ -20,7 +20,7 @@ namespace steam
 
 	unsigned int utils::GetServerRealTime()
 	{
-		return (uint32_t)time(NULL);
+		return 0;
 	}
 
 	const char* utils::GetIPCountry()
@@ -50,29 +50,28 @@ namespace steam
 
 	unsigned int utils::GetAppID()
 	{
-		return 209660;
+		return 42690;
 	}
 
 	void utils::SetOverlayNotificationPosition(int eNotificationPosition)
 	{
-		//const auto& overlay = steam_proxy::get_overlay_module();
-		//if (overlay)
-		//{
-		//	overlay.invoke<void>("SetNotificationPosition", eNotificationPosition);
-		//}
+		if (overlay)
+		{
+			overlay.invoke<void>("SetNotificationPosition", eNotificationPosition);
+		}
 	}
 
-	bool utils::IsAPICallCompleted(unsigned long long hSteamAPICall, bool* pbFailed)
+	bool utils::IsAPICallCompleted(unsigned __int64 hSteamAPICall, bool* pbFailed)
 	{
 		return false;
 	}
 
-	int utils::GetAPICallFailureReason(unsigned long long hSteamAPICall)
+	int utils::GetAPICallFailureReason(unsigned __int64 hSteamAPICall)
 	{
 		return -1;
 	}
 
-	bool utils::GetAPICallResult(unsigned long long hSteamAPICall, void* pCallback, int cubCallback,
+	bool utils::GetAPICallResult(unsigned __int64 hSteamAPICall, void* pCallback, int cubCallback,
 	                             int iCallbackExpected, bool* pbFailed)
 	{
 		return false;
@@ -101,23 +100,8 @@ namespace steam
 		return false;
 	}
 
-	unsigned long long utils::CheckFileSignature(const char* szFileName)
+	unsigned __int64 utils::CheckFileSignature(const char* szFileName)
 	{
 		return 0;
-	}
-
-	bool utils::ShowGamepadTextInput(int eInputMode, int eInputLineMode, const char* szText, unsigned int uMaxLength)
-	{
-		return false;
-	}
-
-	unsigned int utils::GetEnteredGamepadTextLength()
-	{
-		return 0;
-	}
-
-	bool utils::GetEnteredGamepadTextInput(char* pchValue, unsigned int cchValueMax)
-	{
-		return false;
 	}
 }

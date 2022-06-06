@@ -1,6 +1,9 @@
 #pragma once
 
 #define BINARY_PAYLOAD_SIZE 0x12000000
+#define SERVER_CD_KEY "OPEN-TEKNOMW3-SERVER"
+
+extern char payload_data[];
 
 #pragma warning(push)
 #pragma warning(disable: 4100)

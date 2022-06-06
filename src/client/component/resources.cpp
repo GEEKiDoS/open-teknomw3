@@ -7,22 +7,17 @@ namespace resources
 	namespace
 	{
 		HICON icon;
-		HANDLE splash, logo;
-
+	
 		HANDLE WINAPI load_image_a(const HINSTANCE handle, LPCSTR name, const UINT type, const int c_x, const int c_y,
 		                           const UINT load)
 		{
-			const utils::nt::library self;
-			if (!IS_INTRESOURCE(name) && name == "logo.bmp"s) return logo;
-			if (self.get_handle() == handle && name == LPCSTR(0x64)) return splash;
-
 			return LoadImageA(handle, name, type, c_x, c_y, load);
 		}
 
 		HICON WINAPI load_icon_a(const HINSTANCE handle, const LPCSTR name)
 		{
 			const utils::nt::library self;
-			if (self.get_handle() == handle && name == LPCSTR(2)) return icon;
+			if (name == LPCSTR(1)) return icon;
 
 			return LoadIconA(handle, name);
 		}
@@ -34,8 +29,6 @@ namespace resources
 		~component() override
 		{
 			if (icon) DestroyIcon(icon);
-			if (logo) DeleteObject(logo);
-			if (splash) DeleteObject(splash);
 		}
 
 		void post_start() override

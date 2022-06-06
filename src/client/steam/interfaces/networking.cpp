@@ -1,5 +1,5 @@
 #include <std_include.hpp>
-#include "../steam.hpp"
+#include "steam/steam.hpp"
 
 namespace steam
 {

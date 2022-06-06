@@ -23,9 +23,10 @@ namespace steam
 
 	class matchmaking
 	{
-	public:
+	protected:
 		~matchmaking() = default;
 
+	public:
 		virtual int GetFavoriteGameCount();
 		virtual bool GetFavoriteGame(int iGame, unsigned int* pnAppID, unsigned int* pnIP, unsigned short* pnConnPort,
 		                             unsigned short* pnQueryPort, unsigned int* punFlags,
@@ -35,7 +36,7 @@ namespace steam
 		                            unsigned int rTime32LastPlayedOnServer);
 		virtual bool RemoveFavoriteGame(unsigned int nAppID, unsigned int nIP, unsigned short nConnPort,
 		                                unsigned short nQueryPort, unsigned int unFlags);
-		virtual unsigned long long RequestLobbyList();
+		virtual unsigned __int64 RequestLobbyList();
 		virtual void AddRequestLobbyListStringFilter(const char* pchKeyToMatch, const char* pchValueToMatch,
 		                                             int eComparisonType);
 		virtual void AddRequestLobbyListNumericalFilter(const char* pchKeyToMatch, int nValueToMatch,
@@ -44,10 +45,9 @@ namespace steam
 		virtual void AddRequestLobbyListFilterSlotsAvailable(int nSlotsAvailable);
 		virtual void AddRequestLobbyListDistanceFilter(int eLobbyDistanceFilter);
 		virtual void AddRequestLobbyListResultCountFilter(int cMaxResults);
-		virtual void AddRequestLobbyListCompatibleMembersFilter(steam_id steamID);
 		virtual steam_id GetLobbyByIndex(int iLobby);
-		virtual unsigned long long CreateLobby(int eLobbyType, int cMaxMembers);
-		virtual unsigned long long JoinLobby(steam_id steamIDLobby);
+		virtual unsigned __int64 CreateLobby(int eLobbyType, int cMaxMembers);
+		virtual unsigned __int64 JoinLobby(steam_id steamIDLobby);
 		virtual void LeaveLobby(steam_id steamIDLobby);
 		virtual bool InviteUserToLobby(steam_id steamIDLobby, steam_id steamIDInvitee);
 		virtual int GetNumLobbyMembers(steam_id steamIDLobby);
@@ -74,6 +74,5 @@ namespace steam
 		virtual bool SetLobbyJoinable(steam_id steamIDLobby, bool bLobbyJoinable);
 		virtual steam_id GetLobbyOwner(steam_id steamIDLobby);
 		virtual bool SetLobbyOwner(steam_id steamIDLobby, steam_id steamIDNewOwner);
-		virtual bool SetLinkedLobby(steam_id steamIDLobby, steam_id steamIDLobby2);
 	};
 }

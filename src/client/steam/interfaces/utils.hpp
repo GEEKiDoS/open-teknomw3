@@ -4,9 +4,10 @@ namespace steam
 {
 	class utils
 	{
-	public:
+	protected:
 		~utils() = default;
 
+	public:
 		virtual unsigned int GetSecondsSinceAppActive();
 		virtual unsigned int GetSecondsSinceComputerActive();
 		virtual int GetConnectedUniverse();
@@ -18,20 +19,15 @@ namespace steam
 		virtual unsigned char GetCurrentBatteryPower();
 		virtual unsigned int GetAppID();
 		virtual void SetOverlayNotificationPosition(int eNotificationPosition);
-		virtual bool IsAPICallCompleted(unsigned long long hSteamAPICall, bool* pbFailed);
-		virtual int GetAPICallFailureReason(unsigned long long hSteamAPICall);
-		virtual bool GetAPICallResult(unsigned long long hSteamAPICall, void* pCallback, int cubCallback,
+		virtual bool IsAPICallCompleted(unsigned __int64 hSteamAPICall, bool* pbFailed);
+		virtual int GetAPICallFailureReason(unsigned __int64 hSteamAPICall);
+		virtual bool GetAPICallResult(unsigned __int64 hSteamAPICall, void* pCallback, int cubCallback,
 		                              int iCallbackExpected, bool* pbFailed);
 		virtual void RunFrame();
 		virtual unsigned int GetIPCCallCount();
 		virtual void SetWarningMessageHook(void (*pFunction)(int hpipe, const char* message));
 		virtual bool IsOverlayEnabled();
 		virtual bool BOverlayNeedsPresent();
-		virtual unsigned long long CheckFileSignature(const char* szFileName);
-
-		virtual bool ShowGamepadTextInput(int eInputMode, int eInputLineMode, const char* szText,
-		                                  unsigned int uMaxLength);
-		virtual unsigned int GetEnteredGamepadTextLength();
-		virtual bool GetEnteredGamepadTextInput(char* pchValue, unsigned int cchValueMax);
+		virtual unsigned __int64 CheckFileSignature(const char* szFileName);
 	};
 }

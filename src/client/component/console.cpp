@@ -3,6 +3,7 @@
 #include "loader/component_loader.hpp"
 #include "game/game.hpp"
 #include "command.hpp"
+#include "game_console.hpp"
 
 #include <utils/thread.hpp>
 #include <utils/flags.hpp>
@@ -184,6 +185,7 @@ namespace console
 				while (!message_queue_copy.empty())
 				{
 					log_message(message_queue_copy.front());
+					game_console::print(7, message_queue_copy.front());
 					message_queue_copy.pop();
 				}
 			}

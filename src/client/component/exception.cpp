@@ -171,10 +171,19 @@ namespace exception
 			SetUnhandledExceptionFilter(exception_filter);
 		}
 
+		void* load_import(const std::string& library, const std::string& function) override
+		{
+			if (library == "KERNEL32.dll" && function == "SetUnhandledExceptionFilter")
+			{
+				return set_unhandled_exception_filter_stub;
+			}
+
+			return nullptr;
+		}
+
 		void post_load() override
 		{
 			SetUnhandledExceptionFilter(exception_filter);
-			utils::hook::jump(SetUnhandledExceptionFilter, set_unhandled_exception_filter_stub, true);
 
 			scheduler::on_game_initialized([]()
 			{

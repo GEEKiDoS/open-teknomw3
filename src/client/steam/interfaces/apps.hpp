@@ -4,9 +4,10 @@ namespace steam
 {
 	class apps
 	{
-	public:
+	protected:
 		~apps() = default;
 
+	public:
 		virtual bool BIsSubscribed();
 		virtual bool BIsLowViolence();
 		virtual bool BIsCybercafe();
@@ -22,11 +23,5 @@ namespace steam
 		                                int cchNameBufferSize);
 		virtual void InstallDLC(unsigned int nAppID);
 		virtual void UninstallDLC(unsigned int nAppID);
-		virtual void RequestAppProofOfPurchaseKey(unsigned int nAppID);
-		virtual bool GetCurrentBetaName(char* pchName, int cchNameBufferSize);
-		virtual bool MarkContentCorrupt(bool bMissingFilesOnly);
-		virtual unsigned int GetInstalledDepots(int* pvecDepots, unsigned int cMaxDepots);
-		virtual unsigned int GetAppInstallDir(unsigned int appID, char* pchFolder, unsigned int cchFolderBufferSize);
-		virtual bool BIsAppInstalled(unsigned int appID);
 	};
 }

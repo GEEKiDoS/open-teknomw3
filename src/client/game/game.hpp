@@ -46,6 +46,11 @@ namespace game
 			return this->get();
 		}
 
+		T& operator[](int index) const
+		{
+			return *reinterpret_cast<T*>(reinterpret_cast<size_t>(this->get()) + sizeof(size_t) * index);
+		}
+
 	private:
 		T* mp_obj_;
 		T* dedi_obj_;
