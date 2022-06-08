@@ -233,6 +233,11 @@ cppdialect "C++20"
 architecture "x86"
 platforms "x86"
 
+filter "action:vs*"
+	buildoptions "/bigobj"
+	buildoptions "/Zc:__cplusplus"
+filter {}
+
 systemversion "latest"
 symbols "On"
 staticruntime "On"

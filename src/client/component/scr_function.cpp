@@ -7,6 +7,9 @@
 
 #include "component/scheduler.hpp"
 
+#include <xsk/gsc/types.hpp>
+#include <xsk/resolver.hpp>
+
 namespace scr_function
 {
 	namespace
@@ -54,6 +57,12 @@ namespace scr_function
 		{
 
 		}
+	}
+
+	void add_function(std::string const& name, uint16_t id, void* function)
+	{
+		xsk::gsc::iw5::resolver::add_function(name, id);
+		game::Scr_RegisterFunction(function, 0, id);
 	}
 
 	class component final : public component_interface

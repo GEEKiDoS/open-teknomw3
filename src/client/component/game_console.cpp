@@ -664,6 +664,7 @@ namespace game_console
 				auto name = utils::string::to_lower(game::sortedDvars[i]->name);
 				if (game_console::match_compare(input, name, exact))
 				{
+					if (exact) suggestions.clear();
 					suggestions.emplace_back(game::sortedDvars[i]->name);
 				}
 
@@ -682,6 +683,7 @@ namespace game_console
 				auto name = utils::string::to_lower(cmd->name);
 				if (game_console::match_compare(input, name, exact))
 				{
+					if (exact) suggestions.clear();
 					suggestions.emplace_back(cmd->name);
 				}
 

@@ -33,7 +33,7 @@ namespace game
 	WEAK symbol<dvar_t* (const char*, float, float, float, float, unsigned int, const char*)> Dvar_RegisterVec3Color{ 0x534CF0, 0 };
 	WEAK symbol<dvar_t* (const char*, float, float, float, float, float, float, unsigned int, const char*)> Dvar_RegisterVec4{ 0x5125B0, 0 };
 
-	WEAK symbol<void(void*, int, int)> Scr_RegisterFunction{ 0x5320D0, 0 };
+	WEAK symbol<void(void*, int, size_t)> Scr_RegisterFunction{ 0x5320D0, 0 };
 
 	WEAK symbol<ScreenPlacement* ()> ScrPlace_GetViewPlacement{ 0x5346F0, 0 };
 	WEAK symbol<Font_s* (const char* font)> R_RegisterFont{ 0x522510, 0x0 };
@@ -45,6 +45,27 @@ namespace game
 	WEAK symbol<void(const char*, int, Font_s*, float, float, float, float, float, const float*, int, int, char)> 
 		R_AddCmdDrawTextWithCursor{ 0x50D110, 0 };
 	WEAK symbol<const char* (dvar_t* dvar, DvarValue value)> Dvar_ValueToString{ 0x4327A0, 0 };
+
+	WEAK symbol<XAssetHeader (XAssetType type, const char *name, bool allowCreateDefault)> DB_FindXAssetHeader{ 0x4B25C0, 0 };
+	WEAK symbol<bool (XAssetType type, const char *name)> DB_IsXAssetDefault{ 0x4471F0, 0 };
+	WEAK symbol<void (RawFile* rawfile, char* buf, int size)> DB_GetRawBuffer{ 0x49C920, 0 };
+
+	WEAK symbol<void ()> GScr_LoadGameTypeScript{ 0x4CF510, 0 };
+	WEAK symbol<void ()> Scr_LoadGameType{ 0x4DA3B0, 0 };
+	WEAK symbol<bool (const char*)> Scr_LoadScript{ 0x482DD0, 0 };
+	WEAK symbol<int (const char* filename, unsigned int str)> Scr_GetFunctionHandle{ 0x433150, 0 };
+	WEAK symbol<int16_t(int, uint32_t)> Scr_ExecThread{ 0x40CAD0, 0 };
+	WEAK symbol<void (int16_t)> Scr_FreeThread{ 0x538EF0, 0 };
+
+	WEAK symbol<void (const char* gameName)> FS_Startup{ 0x4AF680, 0 };
+	WEAK symbol<int (const char* qpath, char** buffer)> FS_ReadFile{ 0x533EB0, 0 };
+	WEAK symbol<void(void* buffer)> FS_FreeFile{ 0x530EA0, 0 };
+
+	WEAK symbol<XAssetEntry*(XAssetType type, XAssetHeader *header)> DB_LinkXAssetEntry1{ 0x5C8C60, 0 };
+	WEAK symbol<char*(size_t len)> TempMalloc{ 0x51C0B0, 0 };
+	WEAK symbol<char *(int)> DB_AllocStreamPos{ 0x46C620, 0 };
+	WEAK symbol<void(size_t len)> DB_IncStreamPos{ 0x55DF70, 0 };
+	WEAK symbol<void(bool atStreamStart, void* ptr, size_t size)> Load_Strem{ 0x4C53A0, 0 };
 
 	WEAK symbol<gentity_s> g_entities{ 0x1A65EA8,0x0 };
 	WEAK symbol<int> com_num_console_lines{ 0x1CE7728,0x0 };
@@ -65,4 +86,6 @@ namespace game
 
 	WEAK symbol<int> dvarCount{ 0x59B3CA0, 0 };
 	WEAK symbol<dvar_t*> sortedDvars{ 0x59B3CC8, 0 };
+
+	WEAK symbol<char> programBuffer{ 0x20899DC, 0 };
 }

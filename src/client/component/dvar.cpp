@@ -48,6 +48,22 @@ namespace dvar
 
 			return dvar_register_float_detour.invoke<game::dvar_t*>(dvarName, value, min, max, flags, description);
 		}
+
+		utils::hook::detour dvar_register_string_detour;
+		game::dvar_t* dvar_register_string_stub(const char* dvarName, const char* value, unsigned int flags, const char* description)
+		{
+			if (dvar_flagmods.contains(dvarName))
+			{
+				flags = dvar_flagmods[dvarName];
+			}
+
+			if (dvar_valuemods.contains(dvarName))
+			{
+				value = dvar_valuemods[dvarName].string;
+			}
+
+			return dvar_register_string_detour.invoke<game::dvar_t*>(dvarName, value, flags, description);
+		}
 	}
 
 	void override_dvar_flag(const std::string& dvar, uint32_t flags)
@@ -76,6 +92,7 @@ namespace dvar
 		{
 			dvar_register_bool_detour.create(game::Dvar_RegisterBool.get(), dvar_register_bool_stub);
 			dvar_register_float_detour.create(game::Dvar_RegisterFloat.get(), dvar_register_float_stub);
+			dvar_register_string_detour.create(game::Dvar_RegisterString.get(), dvar_register_string_stub);
 
 			override_dvar_flag("cg_fov", game::dvar_flags::DVAR_ARCHIVE);
 

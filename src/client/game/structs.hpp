@@ -1716,30 +1716,6 @@ namespace game
 
 	static_assert(sizeof(PlayerKeyState) == 0xD2C, "PlayerKeyState size mismatch");
 
-	/* 827 */
-	enum netadrtype_t : __int32
-	{
-		NA_BOT = 0x0,
-		NA_BAD = 0x1,
-		NA_LOOPBACK = 0x2,
-		NA_BROADCAST = 0x3,
-		NA_IP = 0x4,
-	};
-
-	/* 711 */
-	enum netsrc_t : __int32
-	{
-		NS_CLIENT1 = 0x0,
-		NS_CLIENT2 = 0x1,
-		NS_CLIENT3 = 0x2,
-		NS_CLIENT4 = 0x3,
-		NS_MAXCLIENTS = 0x4,
-		NS_SERVER = 0x4,
-		NS_PACKET = 0x5,
-		NS_INVALID_NETSRC = 0x6,
-	};
-
-	/* 9799 */
 	struct netadr_t
 	{
 		netadrtype_t type;
@@ -1747,6 +1723,77 @@ namespace game
 		unsigned __int16 port;
 		netsrc_t localNetID;
 	};
+
+	struct ScriptFile
+	{
+		const char* name;
+		unsigned int compressedLen;
+		unsigned int len;
+		unsigned int bytecodeLen;
+		const char* buffer;
+		char* bytecode;
+	};
+
+	struct RawFile
+	{
+		const char* name;
+		int compressedLen;
+		int len;
+		const char* buffer;
+	};
+
+	union XAssetHeader
+	{
+		RawFile* rawfile;
+		/*VertexDecl* vertexdecl;
+		PixelShader* pixelshader;
+		VertexShader* vertexshader;*/
+		MaterialTechniqueSet* techset;
+		GfxImage* gfximage;
+		Material* material;
+		/*PhysPreset* physpreset;
+		PhysCollmap* physcollmap;
+		XAnimParts* xanimparts;
+		ModelSurface* xsurface;
+		clipMap_t* clipmap;
+		GfxWorld* gfxworld;
+		MapEnts* mapents;
+		GlassWorld* glassworld;
+		FxWorld* fxworld;
+		XModel* xmodel;
+		StringTable* stringtable;*/
+		ScriptFile* scriptfile;
+		/*ComWorld* comworld;
+		LocalizeEntry* localize;
+		SndCurve* soundcurve;
+		TracerDef* tracer;
+		LeaderBoardDef* leaderboard;*/
+		Font_s* font;
+		/*AttachmentDef* attachment;
+		WeaponCompleteDef* weapon;
+		FxEffectDef* fx;
+		snd_alias_list_t* sound;
+		LoadedSound* loadedsound;
+		StructuredDataDefSet* structureddatadef;
+		menuDef_t* menu;
+		GfxLightDef* lightdef;*/
+		void* data;
+	};
+
+	struct XAsset
+	{
+		XAssetType type;
+		XAssetHeader header;
+	};
+
+	struct XAssetEntry
+	{
+		XAsset asset;
+		unsigned int nextHash;
+		unsigned int nextOverride;
+		unsigned int nextPoolEntry;
+	};
+
 
 	namespace mp
 	{
